@@ -1,5 +1,5 @@
 from htmlnode import HTMLNode
-import textnode
+from textnode import TextNode, TextType, text_node_to_html_node
 from leafnode import LeafNode
 from parentnode import ParentNode
 
@@ -15,5 +15,10 @@ def main():
     parent_child = ParentNode("div", [LeafNode("span", "nested content")])
     mixed_parent = ParentNode("section", [leaf_child, parent_child])
     print(mixed_parent.to_html())
+    print('------NEW TEST-------')
+    node = TextNode("link to boot.dev", TextType.IMAGE, 'boot.dev')
+    html_node = text_node_to_html_node(node)
+    print(html_node.to_html())
+
 if __name__ == "__main__":
     main()
