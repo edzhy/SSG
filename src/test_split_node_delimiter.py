@@ -43,4 +43,13 @@ class TestSplitNodeDelimiter(unittest.TestCase):
         for node in nodes:
             final += (text_node_to_html_node(node).to_html())
         self.assertEqual(final,
-        "simple dimple <code></code> test with <code>code</code>.")
+        "simple dimple  test with <code>code</code>.")
+#6 one more test with adjacent delimiter behavior
+    def test_adjacent_delimiters(self):
+        nodes = [TextNode('simple dimple__ test with `code`.',TextType.TEXT)]
+        nodes = split_nodes_by_all_delimiters(nodes)
+        final =''
+        for node in nodes:
+            final += (text_node_to_html_node(node).to_html())
+        self.assertEqual(final,
+        "simple dimple test with <code>code</code>.")

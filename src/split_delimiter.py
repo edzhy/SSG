@@ -13,6 +13,8 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type_p):
             raise Exception('The initial input contains invalid Markdown syntax')
         sub_nodes = old_node.text.split(delimiter)
         for i in range(1,len(sub_nodes)+1,1):
+            if len(sub_nodes[i-1]) == 0:
+                continue
             if i % 2 == 1:
                 result.append(TextNode(sub_nodes[i-1],text_type=TextType.TEXT))
             else:
@@ -38,3 +40,6 @@ def split_nodes_by_all_delimiters(old_nodes):
     return result
 
 
+#text = "This is **text** with an _italic_ word and a `code block`"
+#test_list = [TextNode(text, TextType.TEXT),]
+#print(split_nodes_by_all_delimiters(test_list))
