@@ -1,7 +1,7 @@
 from markdown_to_html_node import markdown_to_html_node
 from extract_title import extract_title
 import os
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     dest_path_info = dest_path.split('/')
     target_dir = dest_path_info[0] + '/'
     print(f'Generating page from {from_path} to {dest_path} using {template_path}')
@@ -13,8 +13,10 @@ def generate_page(from_path, template_path, dest_path):
     h1_heading = extract_title(md_content)
     html_template_w_title = html_template.replace("{{ Title }}", h1_heading)
     html_full = html_template_w_title.replace("{{ Content }}", html_body_node)
+    html_full_href_basepath_updated = html_full.replace('href="/',f'href="{basepath}')
+    html_full_src_basepath_updated = html_full_href_basepath_updated.replace('src="/',f'src="{basepath}')
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
     with open(dest_path, 'w') as target_file:
-        target_file.write(html_full)
+        target_file.write(html_full_src_basepath_updated)
     return

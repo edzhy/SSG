@@ -4,7 +4,7 @@ from file_copy import target_path_builder
 import shutil
 from generate_page import generate_page
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     if os.path.exists(dir_path_content):
         all_paths = path_finder(dir_path_content)
         dir_paths, md_paths = [], {}
@@ -20,7 +20,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
             if not os.path.exists(target_dir):
                 os.makedirs(target_dir)
         for obj_src, obj_tgt in md_paths.items():
-            generate_page(obj_src,template_path,obj_tgt)
+            generate_page(obj_src,template_path,obj_tgt, basepath)
     else:
         raise Exception('Invalid content directory, does not exist')
     return
