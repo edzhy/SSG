@@ -20,6 +20,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
             if not os.path.exists(target_dir):
                 os.makedirs(target_dir)
         for obj_src, obj_tgt in md_paths.items():
+            print(f'src: {obj_src}, template: {template_path}, target: {obj_tgt}, basepath: {basepath}')
             generate_page(obj_src,template_path,obj_tgt, basepath)
     else:
         raise Exception('Invalid content directory, does not exist')
